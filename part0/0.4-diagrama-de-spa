@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: Usuário escreve uma nova nota
+    Note right of browser: Usuário clica em Submit
+
+    browser->>server: POST /exampleapp/new_note
+    activate server
+    Note right of server: Servidor salva a nova nota
+    server-->>browser: Redirect (302) para /notes
+    deactivate server
+
+    browser->>server: GET /exampleapp/notes
+    activate server
+    server-->>browser: HTML atualizado com nova nota
+    deactivate server
+
+    Note right of browser: Página inteira é recarregada

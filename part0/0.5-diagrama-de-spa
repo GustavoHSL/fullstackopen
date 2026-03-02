@@ -1,0 +1,39 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET /exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET /exampleapp/main.css
+    activate server
+    server-->>browser: CSS file
+    deactivate server
+
+    browser->>server: GET /exampleapp/spa.js
+    activate server
+    server-->>browser: JavaScript file
+    deactivate server
+
+    Note right of browser: JavaScript é executado
+
+    browser->>server: GET /exampleapp/data.json
+    activate server
+    server-->>browser: JSON com as notas
+    deactivate server
+
+    Note right of browser: Notas são renderizadas na página
+
+    Note right of browser: Usuário escreve uma nova nota e clica em Submit
+
+    browser->>browser: JavaScript captura o submit
+    browser->>server: POST /exampleapp/new_note_spa
+    activate server
+    Note right of server: Servidor salva a nova nota
+    server-->>browser: Resposta de sucesso (JSON)
+    deactivate server
+
+    browser->>browser: Atualiza a lista de notas (DOM)
+    Note right of browser: Página não é recarregada

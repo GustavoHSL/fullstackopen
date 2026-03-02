@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: Usuário escreve uma nova nota
+    Note right of browser: Usuário clica em Submit
+
+    browser->>browser: JavaScript captura o evento submit
+    browser->>browser: Cria objeto da nota (content + date)
+
+    browser->>server: POST /exampleapp/new_note_spa
+    activate server
+    Note right of server: Servidor salva a nova nota
+    server-->>browser: Resposta com a nota criada (JSON)
+    deactivate server
+
+    browser->>browser: Atualiza a lista de notas na interface
+    Note right of browser: Página não é recarregada
