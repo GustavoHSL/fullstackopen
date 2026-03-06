@@ -5,19 +5,38 @@ import { useState } from 'react'
     let all = good+neutral+bad;
     let average = good + (bad*-1);
     let positive = good/all;
+    if(all === 0){
+      return(
+        <div>No feedback given</div>
+      )
+    }else{
   return (
     <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {average}</p>
-      <p>positive {positive*100}%</p>
+      <table>
+        <tbody>
+        <StatisticLine text="good" value={good}></StatisticLine>
+        <StatisticLine text="neutral" value={neutral}></StatisticLine>
+        <StatisticLine text="bad" value={bad}></StatisticLine>
+        <StatisticLine text="all" value={all}></StatisticLine>
+        <StatisticLine text="average" value={average}></StatisticLine>
+        <StatisticLine text="positive" value={positive*100}></StatisticLine>
+        </tbody>
+      </table>
     </div>
   )
+    }
+
+  }
+  const StatisticLine = ({text, value}) => {
+    return (
+      <tr>
+        <td>{text}</td>
+        <td>{value}</td>
+      </tr>
+    )
   }
 
-  const Botao = ({ handleClique, texto }) => (
+  const Button = ({ handleClique, texto }) => (
   <button onClick={handleClique}>
     {texto}
   </button>
@@ -50,9 +69,9 @@ function App() {
   return (
     <div>
       <h1>give feedback</h1>
-      <Botao handleClique={() => setGood(good + 1)} texto="good"></Botao>
-      <Botao handleClique={() => setNeutral(neutral+1)} texto="neutral"></Botao>
-      <Botao handleClique={() => setBad(bad+1)} texto="bad"></Botao>
+      <Button handleClique={() => setGood(good + 1)} texto="good"></Button>
+      <Button handleClique={() => setNeutral(neutral+1)} texto="neutral"></Button>
+      <Button handleClique={() => setBad(bad+1)} texto="bad"></Button>
       <h1>statistics</h1>
       <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
     </div>
