@@ -1,31 +1,57 @@
-import { useState } from 'react'
+const Header = (prop) => {
+  return (
+    <h1>{prop.course}</h1>
+  )
+}
 
 
+const Content = (props) => {
+  return (
+    <div>
+      <Part name={props.parts[0].name} exercises={props.parts[0].exercises}></Part>
+      <Part name={props.parts[1].name} exercises={props.parts[1].exercises}></Part>
+      <Part name={props.parts[2].name} exercises={props.parts[2].exercises}></Part>
+    </div>
+  )
+}
 
-const Botao = ({ handleClique, texto }) => (
-  <button onClick={handleClique}>
-    {texto}
-  </button>
+const Part = ({name, exercises}) => {
+  return (
+    <p>{name} {exercises}</p>
+  )
+}
+
+const Total = ({course}) => {
+return (
+  <p>Number of exercises {course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises}</p>
 )
-
-
+}
 
 const App = () => {
-  const [valor, setValor] = useState(10)
-  
-  const setNoValor = (novoValor) => {
-    console.log('setValor atual', novoValor)
-    setValor(novoValor)
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
   }
-
-  const Exibir = props => <div>{props.valor}</div>
 
   return (
     <div>
-      <Exibir valor={valor} />
-      <Botao handleClique={() => setNoValor(1000)} texto="mil" />
-      <Botao handleClique={() => setNoValor(0)} texto="zerar" />
-      <Botao handleClique={() => setNoValor(valor + 1)} texto="incrementar" />
+      <Header course={course.name} />
+      <Content parts={course.parts}></Content>
+      <Total course={course}></Total>
+      
     </div>
   )
 }
