@@ -4,7 +4,7 @@
   }
 
   return (
-    <div className='error'>
+    <div className='alert'>
       {message}
     </div>
   )

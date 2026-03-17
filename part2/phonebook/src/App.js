@@ -2,6 +2,7 @@ import { useState, useEffect} from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
+import Notification from './components/Notification'
 import personsService from './services/persons'
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showFilter, setNewFilter] = useState('')
+  const [statusMessage, setStatusMessage] = useState(null)
 
   useEffect(() => {
     personsService
@@ -18,6 +20,15 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
+
+const updateStatusMessage = (message) => {
+    setStatusMessage(
+            message
+          )
+          setTimeout(() => {
+            setStatusMessage(null)
+          }, 5000)
+}
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -33,7 +44,8 @@ const App = () => {
         personsService.update(existingPerson.id, personObject).then(returnedPerson => {
         setPersons(persons.map(p => p.id !== existingPerson.id ? p : returnedPerson))
           setNewName('')
-        setNewNumber('')
+          setNewNumber('')
+          updateStatusMessage(`Updated ${newName} number`)
         })
       //window.alert(`${newName} is already added to phonebook`)
         }
@@ -42,6 +54,7 @@ const App = () => {
         .create(personObject)
         .then(returnedPersons => {
             setPersons(persons.concat(returnedPersons))
+            updateStatusMessage(`Added ${newName}`)
             setNewName('')
             setNewNumber('')
       })
@@ -76,7 +89,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+      <Notification message={statusMessage} />
       <Filter value={showFilter} onChange={handleFilterChange} />  
 
       <h3>adda a new</h3>
