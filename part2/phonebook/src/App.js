@@ -46,8 +46,9 @@ const updateStatusMessage = (message) => {
           setNewName('')
           setNewNumber('')
           updateStatusMessage(`Updated ${newName} number`)
+        }).catch(error => {
+          setStatusMessage(`Information of ${newName} has already been removed from server`)
         })
-      //window.alert(`${newName} is already added to phonebook`)
         }
     }else{
       personsService
@@ -81,9 +82,10 @@ const updateStatusMessage = (message) => {
     if(window.confirm(`Delete ${person.name} ?`)){
       personsService.remove(person.id).then(() => {
         setPersons(persons.filter(p => p.id !== person.id))
+      }).catch(error => {
+        setStatusMessage(`Information of ${person.name} has already been removed from server`)
       })
     }
-    
   }
   
   return (
