@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import countriesService from './services/countries';
 import Notification from './components/Notification.js'
+import CountryInfo from './components/CountryInfo.js';
 
 function App() {
 
   const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+  
 
   useEffect(() => {
     if(filter) {
@@ -20,7 +22,9 @@ function App() {
           setCountries([])
           setErrorMessage(`Too many matches, specify another filter`)
         }
-        
+      }).catch(error => {
+          setCountries([])
+          setErrorMessage(null)
       })
     }
 
@@ -33,9 +37,12 @@ function App() {
     <div>
       find countries <input value={filter} onChange={handleFilterChange} />
       <Notification message={errorMessage} />
-        {countries.map(country => 
-          <p key={country.name.common}>{country.name.official}</p>
-        )}
+      {countries.length === 1 
+        ? <CountryInfo country={countries[0]} />
+        : countries.map(country => 
+            <p key={country.name.common}>{country.name.official}</p>
+          )
+      }
     </div>
   );
 }
