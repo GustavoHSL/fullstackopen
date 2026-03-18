@@ -8,7 +8,7 @@ function App() {
   const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
-  
+  const [selectedCountry, setSelectedCountry] = useState(null)
 
   useEffect(() => {
     if(filter) {
@@ -33,14 +33,27 @@ function App() {
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
+
+  const showCountry = (country) => {
+    setSelectedCountry(country)
+  }
   return (
     <div>
       find countries <input value={filter} onChange={handleFilterChange} />
       <Notification message={errorMessage} />
       {countries.length === 1 
         ? <CountryInfo country={countries[0]} />
-        : countries.map(country => 
-            <p key={country.name.common}>{country.name.official}</p>
+        : countries.map(country => (
+          <div key={country.name.common}>
+            <p >
+
+              {country.name.official} 
+             <button onClick={() => showCountry(country)}>Show</button>
+             {selectedCountry && <CountryInfo country={selectedCountry} />}
+
+            </p>
+            </div>
+        )
           )
       }
     </div>
