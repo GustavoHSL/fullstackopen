@@ -12,10 +12,10 @@ oferecido pela Universidade de Helsinki.
 
 | Parte | Conteúdo | Status |
 |-------|----------|--------|
-| Part 0 | Fundamentos da web e diagramas | ✅ Concluída |
-| Part 1 | Introdução ao React | ✅ Concluída |
-| Part 2 | Comunicação com servidor | 🔄 Em andamento |
-| Part 3 | Backend com Node.js e Express | ⏳ Pendente |
+| Part 0 | Fundamentos da web e diagramas | ✅ Concluído |
+| Part 1 | Introdução ao React | ✅ Concluído |
+| Part 2 | Comunicação com servidor | ✅ Concluído |
+| Part 3 | Backend com Node.js e Express | 🔄 Em andamento |
 | Part 4 | Testes e autenticação | ⏳ Pendente |
 | Part 5 | Testes em frontend | ⏳ Pendente |
 | Part 6 | Gerenciamento de estado | ⏳ Pendente |
