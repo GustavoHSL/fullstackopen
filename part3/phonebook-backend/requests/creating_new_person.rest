@@ -1,0 +1,15 @@
+GET http://localhost:3001/api/persons
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Moises Alfredo",
+    "number": "+54 99 5412354" 
+}
+
+###
+
+GET http://localhost:3001/api/persons
