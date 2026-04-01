@@ -1,6 +1,22 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
+
+morgan.token('body', (request) => {
+    if(request.method === 'POST') {
+        return JSON.stringify(request.body)
+    }
+    return  ''
+})
+
 app.use(express.json())
+
+
+//utiliza o formato do tiny e acrescenta o body quando for a situação de POST
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
+
+
 let persons = [
     { 
       "id": 1,
@@ -88,6 +104,8 @@ app.post('/api/persons', (request, response) => {
     }
     
 })
+
+
 
 const PORT = 3001
 app.listen(PORT, () => {
